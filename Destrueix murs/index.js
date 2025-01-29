@@ -11,11 +11,58 @@ let x = canvas.width / 2
 let y = canvas.height -30
 
 //Velocitat pilota
-let dx = 2
-let dy = -2 
+let dx = 4
+let dy = -4
+
+//Variables pala 
+let amplePala = 70;
+let alturaPala = 10;
+
+let sensibilitat = 8;
+let dreta = false
+let esquerra = false 
+let palaX =( canvas.width-amplePala)/2
+let palaY = canvas.height- alturaPala -10
+
 
 function pintarPala(){
+    ctx.fillStyle = "#FFFF"
+    ctx.fillRect(palaX, palaY, amplePala, alturaPala)
+}
 
+function inicialitzadorEvents (){
+    document.addEventListener('keydown', pulsar);
+    document.addEventListener('keyup', soltar);
+
+    function pulsar (event){
+
+        if (event.key == 'ArrowRight' || event.key == 'd'){
+            dreta = true 
+        }
+        if(event.key == 'ArrowLeft' || event.key == 'a'){
+            esquerra = true 
+        }
+        if(event.key == '+'){
+            amplePala = 2*amplePala
+        }
+        if(event.key == '-'){
+            amplePala = amplePala /2 
+        }
+
+    }
+
+    
+
+    function soltar (event){
+        if (event.key == 'ArrowRight' || event.key == 'd'){
+            dreta = false;
+        }
+        if(event.key == 'ArrowLeft' || event.key == 'a'){
+            esquerra = false;
+        }
+        
+
+    }
 }
 
 function pintarPilota(){
@@ -37,19 +84,30 @@ function deteccioColisio(){
 
 
 function movimentPilota(){
-    if(x >= canvas.width || x <=0){
+    if(x + dx >= canvas.width || x + dx <=0){
         dx= -dx
     } 
 
-    if(y<= 0 || y>= canvas.height){
+    if(y + dy <= 0){
         dy = -dy 
     }
+    if(y + dy > canvas.height ){
+        console.log("GAME OVER")
+        document.location.reload();
+    }
+   
     x += dx;
     y += dy;
 
 }
 
 function movimentPala(){
+    if(dreta && palaX < canvas.width - amplePala){
+        palaX += sensibilitat
+
+    }else if (esquerra && palaX > 0 ){
+        palaX -= sensibilitat
+    }
 
 }
 
@@ -71,3 +129,4 @@ function pintarCanvas(){
 }
 
 pintarCanvas();
+inicialitzadorEvents();
