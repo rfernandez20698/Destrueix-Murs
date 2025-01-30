@@ -5,7 +5,7 @@ canvas.height = 512;
 canvas.width = 448; 
 
 //variables pilota
-const radiPilota = 7;
+let radiPilota = 7;
 
 let x = canvas.width / 2
 let y = canvas.height -30
@@ -36,10 +36,10 @@ function inicialitzadorEvents (){
 
     function pulsar (event){
 
-        if (event.key == 'ArrowRight' || event.key == 'd'){
+        if (event.key == 'ArrowRight'){
             dreta = true 
         }
-        if(event.key == 'ArrowLeft' || event.key == 'a'){
+        if(event.key == 'ArrowLeft'){
             esquerra = true 
         }
         if(event.key == '+'){
@@ -47,6 +47,33 @@ function inicialitzadorEvents (){
         }
         if(event.key == '-'){
             amplePala = amplePala /2 
+        }
+       
+        if(event.key == 'ArrowUp'){
+            radiPilota = 2*radiPilota
+        }
+        if(event.key == 'ArrowDown'){
+            radiPilota = radiPilota /2 
+        }
+
+        if(event.key == 'a'){
+            sensibilitat = 2*sensibilitat
+        }
+        if(event.key == 'd'){
+            sensibilitat = sensibilitat /2 
+        }
+      
+        if(event.key == 'v'){
+            dx = 2* dx
+            dy = 2* dy 
+        }
+        if(event.key == 'f'){
+            dy = dy /2
+            dx = dx /2
+        }
+
+        if(event.key == '2'){
+
         }
 
     }
@@ -71,6 +98,8 @@ function pintarPilota(){
     ctx.fillStyle = "#FFFF";
     ctx.fill()
     ctx.closePath();
+
+
 
 }
 
