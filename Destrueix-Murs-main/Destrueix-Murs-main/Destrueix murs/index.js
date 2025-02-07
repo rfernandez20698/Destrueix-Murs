@@ -4,6 +4,26 @@ const ctx = canvas.getContext("2d")
 canvas.height = 512;
 canvas.width = 448; 
 
+const filas = 6;
+const columnas = 12;
+const ampleMur = 30;
+const alturaMur = 14;
+const margeTMur = 80;
+const margeEMur = 30;
+const sepMur = 2;
+
+const murs = [];
+const ESTAT_MUR = {
+DESTRUIT : 0 ,
+MOSTRA : 1
+}
+
+const sprites = document.getElementById ("sprites")
+const murs = document.getElementById ("murs")
+
+
+
+
 //variables pilota
 let radiPilota = 7;
 
@@ -28,9 +48,20 @@ let palaY = canvas.height- alturaPala -10
 function pintarPala(){
     ctx.fillStyle = "#FFFF"
     ctx.fillRect(palaX, palaY, amplePala, alturaPala)
+    ctx.drawimatge(
+        sprite, 
+        29, 
+        174, 
+        amplePala, 
+        alturaPala,
+        palaX,
+        palaY, 
+        amplePala,
+        alturaPala, 
+    )
 }
 
-function inicialitzadorEvents (){
+function inicialitzadorEvents (){}
     document.addEventListener('keydown', pulsar);
     document.addEventListener('keyup', soltar);
 
@@ -72,8 +103,8 @@ function inicialitzadorEvents (){
             dx = dx /2
         }
 
-        if(event.key == 'c')
-            let dxNova = dx;
+        /*if(event.key == 'c')
+            let dxNova = dx
             let dyNova = dy;
             
             dx = 0;
@@ -84,7 +115,7 @@ function inicialitzadorEvents (){
                 dy = dyNova;
             }, 1000)
         
-        }
+        }*/
 
         
 
@@ -116,6 +147,30 @@ function pintarPilota(){
 }
 
 function pintarMurs(){
+    for(let c=0; c<columnes; c++){
+        for(let f=0; f<filas; f++)
+            const murActual = murs [c] [f];
+        if (murActual.status == ESTAT_MUR.DESTRUIT){
+            continue;
+        }
+        ctx, fillStyle = murActual.color;
+        ctx.rect (murActual.x, murActual.y, ampleMur. alturaMur)
+        ctx.fill();
+       
+        ctx.drawimatge(
+            mur, 
+            0,
+            16,
+
+            alturaMur,
+            alturaMur,
+            murX, 
+            murY,
+            ampleMur,
+            alturaMur,
+
+        )
+    }
 
 }
 
@@ -171,3 +226,61 @@ function pintarCanvas(){
 
 pintarCanvas();
 inicialitzadorEvents();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
