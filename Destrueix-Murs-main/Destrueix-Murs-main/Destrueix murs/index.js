@@ -19,9 +19,22 @@ MOSTRA : 1
 }
 
 const sprites = document.getElementById ("sprites")
-const murs = document.getElementById ("murs")
+const m = document.getElementById ("m")
 
+for (let c = 0; c<columnas; c++){
+    murs[c] = [];
+    for (let f=0; f<filas; f++)
+        const color = Math.floor(Math.random()*9);
+        const murX = margeEMur+c* (ampleMur + sepMur);
+        const murY = margeTMur+f* (ampleMur + sepMur);
+        murs [c] [f] = {
+            x :murX,
+            y: murY,
+            status: ESTAT_MUR.SHOW,
+            color: color
 
+        }
+}
 
 
 //variables pilota
@@ -49,7 +62,7 @@ function pintarPala(){
     ctx.fillStyle = "#FFFF"
     ctx.fillRect(palaX, palaY, amplePala, alturaPala)
     ctx.drawimatge(
-        sprite, 
+        sprites, 
         29, 
         174, 
         amplePala, 
@@ -154,18 +167,17 @@ function pintarMurs(){
             continue;
         }
         ctx, fillStyle = murActual.color;
-        ctx.rect (murActual.x, murActual.y, ampleMur. alturaMur)
+        ctx.rect (murActual.x,murActual.y,ampleMur,alturaMur);
         ctx.fill();
        
         ctx.drawimatge(
-            mur, 
+            m, 
+            clipX,
             0,
-            16,
-
-            alturaMur,
-            alturaMur,
-            murX, 
-            murY,
+            15,
+            6,
+            murActual.x,
+            murActual.y,
             ampleMur,
             alturaMur,
 
@@ -175,27 +187,70 @@ function pintarMurs(){
 }
 
 function deteccioColisio(){
+    for(let c=0; c<columnes; c++){
+        for(let f=0; f<filas; f++)
+            const murActual = murs[c] [f];
+        if (murActual.status == ESTAT_MUR.DESTRUIT){
+            continue;
+        }
+
+        const mateixaXMur = ;
+        const mateixaYMur = ;
+        if(mateixaXMur && mateixaYMur){
+            dy = -dy;
+            murActual.status = ESTAT_MUR.DESTRUIT
+        }
+    
+        
+    }
 
 }
+
+
 
 
 function movimentPilota(){
-    if(x + dx >= canvas.width || x + dx <=0){
-        dx= -dx
-    } 
-
-    if(y + dy <= 0){
-        dy = -dy 
+    if (x + dx >= canvas.width - radiPilota || x + dx <= 0 + radiPilota) {
+        dx = -dx;
     }
-    if(y + dy > canvas.height ){
-        console.log("GAME OVER")
-        document.location.reload();
+    
+    if (y + dx <= 0) {
+        dy = -dy;
     }
-   
+    
+    if (y + dy > palaY && x > palaX && x < palaX + amplePala) {
+        dy = -dy;
+    }
+    
+    if (y + dy > canvas.height) {
+        vides--;
+       
+    radiPilota = 9;
+    x = canvas.width / 2;
+    y = canvas.height - 30;
+    dx = 2;
+    dy = -2;
+    amplePala = 50;
+    alturaPala = 10;
+    sensibilitat = 8;
+    dreta = false;
+    esquerra = false;
+    palaX = (canvas.width - amplePala) / 2;
+    palaY = canvas.height - alturaPala - 10;
+       
+        if (vides == 0) {
+            alert("GAME OVER");
+            console.log("GAME OVER");
+            document.location.reload();
+        }
+    }
     x += dx;
     y += dy;
-
 }
+
+
+
+
 
 function movimentPala(){
     if(dreta && palaX < canvas.width - amplePala){
@@ -212,15 +267,29 @@ function borrarPantalla(){
     canvas.width = 448;
 }
 
+function pintarPilota(){
+    ctx.beginPath();
+    ctx.arc(x, y, radiPilota, 0, Math.PI * 2)
+    ctx.fillStyle = "black"
+    ctx.fill();
+
+    ctx.closePath();
+}
+
+
 function pintarCanvas(){
     console.log("Hola");
     borrarPantalla();
     pintarPilota();
     pintarPala();
     pintarMurs();
+
     deteccioColisio();
     movimentPilota();
     movimentPala();
+
+    ctx.fillText("vides:" + vides, 10, 10);
+
     window.requestAnimationFrame(pintarCanvas);
 }
 
