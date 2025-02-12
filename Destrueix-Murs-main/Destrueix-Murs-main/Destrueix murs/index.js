@@ -4,13 +4,6 @@ const ctx = canvas.getContext("2d")
 canvas.height = 512;
 canvas.width = 448; 
 
-const filas = 6;
-const columnas = 12;
-const ampleMur = 30;
-const alturaMur = 14;
-const margeTMur = 80;
-const margeEMur = 30;
-const sepMur = 2;
 
 const murs = [];
 const ESTAT_MUR = {
@@ -21,22 +14,9 @@ MOSTRA : 1
 const sprites = document.getElementById ("sprites")
 const m = document.getElementById ("m")
 
-for (let c = 0; c<columnas; c++){
-    murs[c] = [];
-    for (let f=0; f<filas; f++)
-        const color = Math.floor(Math.random()*9);
-        const murX = margeEMur+c* (ampleMur + sepMur);
-        const murY = margeTMur+f* (ampleMur + sepMur);
-        murs [c] [f] = {
-            x :murX,
-            y: murY,
-            status: ESTAT_MUR.SHOW,
-            color: color
-
-        }
-}
 
 
+let vida = 3
 //variables pilota
 let radiPilota = 7;
 
@@ -51,6 +31,17 @@ let dy = -4
 let amplePala = 70;
 let alturaPala = 10;
 
+//Variables dels mexicans 
+const filas = 6 ;
+const columnes = 12;
+const ampleMur = 30;
+const alturaMur = 14;
+const margeTMur = 80;
+const margeEMur = 30;
+const sepMur = 2;
+
+
+
 let sensibilitat = 8;
 let dreta = false
 let esquerra = false 
@@ -58,10 +49,26 @@ let palaX =( canvas.width-amplePala)/2
 let palaY = canvas.height- alturaPala -10
 
 
+for (let c = 0; c<columnes; c++){
+    murs[c] = [];
+    for (let f=0; f<filas; f++){
+        color = Math.floor(Math.random()*9)
+        const murX = margeEMur+c* (ampleMur + sepMur);
+        const murY = margeTMur+f* (ampleMur + sepMur);
+        murs [c] [f] = {
+            x :murX,
+            y: murY,
+            status: ESTAT_MUR.SHOW,
+            color: color
+
+        }
+    }
+}
+
+
 function pintarPala(){
-    ctx.fillStyle = "#FFFF"
-    ctx.fillRect(palaX, palaY, amplePala, alturaPala)
-    ctx.drawimatge(
+
+    ctx.drawImage(
         sprites, 
         29, 
         174, 
@@ -162,7 +169,7 @@ function pintarPilota(){
 function pintarMurs(){
     for(let c=0; c<columnes; c++){
         for(let f=0; f<filas; f++)
-            const murActual = murs [c] [f];
+            murActual = murs [c] [f];
         if (murActual.status == ESTAT_MUR.DESTRUIT){
             continue;
         }
@@ -189,15 +196,15 @@ function pintarMurs(){
 function deteccioColisio(){
     for(let c=0; c<columnes; c++){
         for(let f=0; f<filas; f++)
-            const murActual = murs[c] [f];
+         murActual = murs[c] [f];
         if (murActual.status == ESTAT_MUR.DESTRUIT){
             continue;
         }
 
-        const mateixaXMur = ;
-        const mateixaYMur = ;
+        const mateixaXMur =  x > murActual.x && x < murActual.x + ampleMur
+        const mateixaYMur = y > murActual.y && y < murActual.y + alturaMur
         if(mateixaXMur && mateixaYMur){
-            dy = -dy;
+        dy = -dy;
             murActual.status = ESTAT_MUR.DESTRUIT
         }
     
