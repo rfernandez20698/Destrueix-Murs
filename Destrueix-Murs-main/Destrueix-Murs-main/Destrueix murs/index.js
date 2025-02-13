@@ -14,9 +14,10 @@ MOSTRA : 1
 const sprites = document.getElementById ("sprites")
 const m = document.getElementById ("m")
 
+let colors = ["#ff5733","#ff8a33","#f0ff33","#33beff","#1d6d92","#0336f2","#1e2b5b","#5407ef","#39275b","#66448c","#f105cd","#872a79","#eab1d3","#6d1549"]
 
 
-let vida = 3
+let vides = 3
 //variables pilota
 let radiPilota = 7;
 
@@ -70,7 +71,7 @@ function pintarPala(){
 
     ctx.drawImage(
         sprites, 
-        29, 
+        15, 
         174, 
         amplePala, 
         alturaPala,
@@ -137,11 +138,7 @@ function inicialitzadorEvents (){}
         
         }*/
 
-        
-
     }
-
-    
 
     function soltar (event){
         if (event.key == 'ArrowRight' || event.key == 'd'){
@@ -151,7 +148,6 @@ function inicialitzadorEvents (){}
             esquerra = false;
         }
         
-
     }
 
 
@@ -168,16 +164,18 @@ function pintarPilota(){
 
 function pintarMurs(){
     for(let c=0; c<columnes; c++){
-        for(let f=0; f<filas; f++)
-            murActual = murs [c] [f];
+        for(let f=0; f<filas; f++){
+       const murActual = murs[c][f];
         if (murActual.status == ESTAT_MUR.DESTRUIT){
             continue;
         }
-        ctx, fillStyle = murActual.color;
-        ctx.rect (murActual.x,murActual.y,ampleMur,alturaMur);
-        ctx.fill();
        
-        ctx.drawimatge(
+       // ctx, fillStyle = murActual.color;
+       // ctx.rect (murActual.x,murActual.y,ampleMur,alturaMur);
+        //ctx.fill();
+       
+        let clipX = murActual.color*16
+        ctx.drawImage(
             m, 
             clipX,
             0,
@@ -188,15 +186,16 @@ function pintarMurs(){
             ampleMur,
             alturaMur,
 
-        )
+             )
+        } 
     }
 
 }
 
 function deteccioColisio(){
     for(let c=0; c<columnes; c++){
-        for(let f=0; f<filas; f++)
-         murActual = murs[c] [f];
+        for(let f=0; f<filas; f++){
+        const murActual = murs[c][f];
         if (murActual.status == ESTAT_MUR.DESTRUIT){
             continue;
         }
@@ -211,6 +210,8 @@ function deteccioColisio(){
         
     }
 
+
+    }
 }
 
 
@@ -254,9 +255,6 @@ function movimentPilota(){
     x += dx;
     y += dy;
 }
-
-
-
 
 
 function movimentPala(){
