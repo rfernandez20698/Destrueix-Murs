@@ -41,6 +41,7 @@ const margeTMur = 80;
 const margeEMur = 30;
 const sepMur = 2;
 
+var score = 0;
 
 
 let sensibilitat = 8;
@@ -205,6 +206,12 @@ function deteccioColisio(){
         if(mateixaXMur && mateixaYMur){
         dy = -dy;
             murActual.status = ESTAT_MUR.DESTRUIT
+            score++;
+            if(score == 60){
+                alert("¡FELICIDADES, HAS GANADO!")
+                console.log ("¡FELICIDADES, HAS GANADO!")
+                document.location.reload;
+            }
         }
     
         
@@ -212,6 +219,12 @@ function deteccioColisio(){
 
 
     }
+}
+
+function score(){
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score" + score, 8, 20);
 }
 
 
@@ -275,11 +288,12 @@ function borrarPantalla(){
 function pintarPilota(){
     ctx.beginPath();
     ctx.arc(x, y, radiPilota, 0, Math.PI * 2)
-    ctx.fillStyle = "black"
+    ctx.fillStyle = "white"
     ctx.fill();
 
     ctx.closePath();
 }
+
 
 
 function pintarCanvas(){
@@ -292,8 +306,8 @@ function pintarCanvas(){
     deteccioColisio();
     movimentPilota();
     movimentPala();
-
-    ctx.fillText("vides:" + vides, 10, 10);
+    ctx.fillText("Vides:" + vides, 30, 30);
+    ctx.fillText("Score:" + score, 30, 15);
 
     window.requestAnimationFrame(pintarCanvas);
 }
