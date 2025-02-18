@@ -11,8 +11,8 @@ canvas{
 
 }
 
-score{
-    color: aliceblue;
+#Score{
+    font-family:"Orbitron", serif;
 }
 
 

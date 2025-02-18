@@ -11,6 +11,8 @@ DESTRUIT : 0 ,
 MOSTRA : 1
 }
 
+const tenis = document.getElementById("tenis")
+
 const sprites = document.getElementById ("sprites")
 const m = document.getElementById ("m")
 
@@ -28,9 +30,13 @@ let y = canvas.height -30
 let dx = 4
 let dy = -4
 
+//Variables pilota tenis 
+let ampleTenis = 20;
+let alturaTenis = 10;
+
 //Variables pala 
 let amplePala = 70;
-let alturaPala = 10;
+let alturaPala = 8;
 
 //Variables dels mexicans 
 const filas = 6 ;
@@ -160,6 +166,21 @@ function pintarPilota(){
     ctx.closePath();
 
 
+    ctx.drawImage(
+        tenis, 
+        512, 
+        512, 
+        ampleTenis,
+        alturaTenis, 
+        tenis.x, 
+        tenis.y,
+        ampleTenis, 
+        alturaTenis, 
+
+        
+    )
+
+
 
 }
 
@@ -213,6 +234,7 @@ function deteccioColisio(){
                 document.location.reload;
             }
         }
+
     
         
     }
@@ -288,8 +310,20 @@ function borrarPantalla(){
 function pintarPilota(){
     ctx.beginPath();
     ctx.arc(x, y, radiPilota, 0, Math.PI * 2)
-    ctx.fillStyle = "white"
+    ctx.fillStyle = "black"
     ctx.fill();
+     ctx.drawImage(
+        sprites, 
+        15, 
+        175, 
+        amplePala, 
+        alturaPala,
+        palaX,
+        palaY, 
+        amplePala,
+        alturaPala, 
+    )
+    
 
     ctx.closePath();
 }
