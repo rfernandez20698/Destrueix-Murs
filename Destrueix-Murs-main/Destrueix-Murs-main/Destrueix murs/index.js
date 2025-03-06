@@ -15,6 +15,7 @@ const tenis = document.getElementById("tenis")
 
 const sprites = document.getElementById ("sprites")
 const m = document.getElementById ("m")
+const corazones = document.getElementById("corazones")
 
 let colors = ["#ff5733","#ff8a33","#f0ff33","#33beff","#1d6d92","#0336f2","#1e2b5b","#5407ef","#39275b","#66448c","#f105cd","#872a79","#eab1d3","#6d1549"]
 
@@ -168,7 +169,8 @@ function pintarPilota(){
 
     ctx.drawImage(
         tenis, 
-        512, 
+        0, 
+        15,
         512, 
         ampleTenis,
         alturaTenis, 
@@ -267,7 +269,27 @@ function movimentPilota(){
     
     if (y + dy > canvas.height) {
         vides--;
+       document.getElementById("corazon").src =""
+
+    if(vides == 3){
+        document.getElementById("corazon").src = "./" 
+
+     if (vides == 2){
+        document.getElementById("corazon").src = "./"
+     }
+
+     if (vides == 2){
+        document.getElementById("corazon").src = "./"
+     }
+
+    }
+   
+ 
        
+       
+
+
+
     radiPilota = 9;
     x = canvas.width / 2;
     y = canvas.height - 30;
